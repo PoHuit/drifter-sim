@@ -6,8 +6,11 @@
 
 # Simulate a bunch of Drifter systems and determine connectivity.
 
-# Number of wormholes per system.
+# Average number of wormholes per system.
 holes_per_system = 27
+
+# Standard deviation in number of wormholes.
+hole_sd = 2.0
 
 # Number of simulations to run.
 simulation_count = 10000
@@ -21,7 +24,8 @@ def sim():
     # Place the holes.
     observatories = [set() for _ in range(1206)]
     for system in range(5):
-        for _ in range(holes_per_system):
+        n = round(gauss(holes_per_system, hole_sd))
+        for _ in range(n):
             obs = randrange(len(observatories))
             observatories[obs].add(system)
     # Filter out noise for efficiency.
