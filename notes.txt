@@ -1,0 +1,15 @@
+So if I'm understanding correctly we will call two Drifter systems "connected" if they both contain a wormhole to the same Observatory.  So far so good. At least I understand how the game mechanics work now — thanks for clarifying.
+
+I'm still not getting the "poker hands" analogy, I'm afraid. The model in the spreadsheet is still a bit opaque to me.
+
+Let's assume that the 30 holes from Redoubt are distributed randomly among the Observatories. This include a small chance that two holes from Redoubt go to a single observatory. It sounds like we may have seen this? I'm going to assume that the other four Drifter systems are not connected to each other, which makes the math easier without changing the answer much. Then there are 120 / 1206 Observatories covered by the other Drifter systems. (Dropping the coverage assumption will lead to a smaller percentage since there are fewer Observatories covered, but I think it's unlikely to go much below 100/1206 which doesn't change the answer much.)  Now let's proceed roughly as you did. For all 30 holes from Redoubt to miss the other systems you get ((1206-120)/1206)^30 = 4%. So there's a 96% chance that Redoubt will be connected to some other Drifter hole. This is rougly what you got, so good.
+
+Beyond that the math gets tricky and I'm not super-confident that the math you did is the right answer, but it seems plausible.
+
+What is it that we actually want to know at the end of the day? The probability that there is some chain of connections that allows travel between all five Drifter systems? I think we can approximate this pretty easily. Let's say that the probability that a given Drifter system is connected is 96% as above. There are five such systems, so the probability that all systems are connected is 96%^5  = 82%, so the probability that at least one is disconnected is 18%.
+
+If we tighten up the calculations to be exact, this number will undoubtedly vary. Specifically, the probability of a disconnected system will be higher, since multiple connections betwen Drifter systems will reduce the opportunities. But I think it will be pretty close.
+
+If we rerun everything with a SWAG that there will be 100 Observatories covered, we get 69% that all Drifter systems are connected. This is pretty close to the 65% that you calculated, so that's nice. So there's then a 31% chance that a Drifter system is disconnected.
+
+We can check all this with a software simulation. I'll get it written shortly, but I wanted to hit return on what I have.
