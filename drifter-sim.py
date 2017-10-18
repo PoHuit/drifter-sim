@@ -6,8 +6,11 @@
 
 # Simulate a bunch of Drifter systems and determine connectivity.
 
+# Number of wormholes per system.
+holes_per_system = 27
+
 # Number of simulations to run.
-n = 10000
+simulation_count = 10000
 
 from random import *
 
@@ -18,7 +21,7 @@ def sim():
     # Place the holes.
     observatories = [set() for _ in range(1206)]
     for system in range(5):
-        for _ in range(30):
+        for _ in range(holes_per_system):
             obs = randrange(len(observatories))
             observatories[obs].add(system)
     # Filter out noise for efficiency.
@@ -46,16 +49,16 @@ def sim():
     return tuple(sorted(sizes, reverse=True))
 
 configs = dict()
-for _ in range(n):
+for _ in range(simulation_count):
     sizes = sim()
     if sizes in configs:
         configs[sizes] += 1
     else:
         configs[sizes] = 1
 
-print(total_connections / n, "avg connections per sim")
+print(total_connections / simulation_count, "avg connections per sim")
 print()
 for c in sorted(configs.keys(), reverse=True):
     desc = '/'.join([str(i) for i in c])
-    prob = configs[c] / n
+    prob = configs[c] / simulation_count
     print(desc, "%d%%" % (round(100.0 * prob,)))
