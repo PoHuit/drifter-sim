@@ -27,7 +27,7 @@ def sim():
     while running:
         running = False
         for c in connections:
-            if c & closure != {} and not (c <= closure):
+            if c & closure and not (c <= closure):
                 closure = closure | c
                 running = True
     # Check connectivity.
