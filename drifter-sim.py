@@ -8,7 +8,10 @@
 
 from random import *
 
+total_connections = 0
+
 def sim():
+    global total_connections
     # Place the holes.
     observatories = [set() for _ in range(1206)]
     for system in range(5):
@@ -17,6 +20,7 @@ def sim():
             observatories[obs].add(system)
     # Filter out noise for efficiency.
     connections = [s for s in observatories if len(s) >= 2]
+    total_connections += len(connections)
     # Transitive closure
     closure = {0}
     running = True
@@ -34,4 +38,4 @@ c = 0
 for _ in range(n):
     if sim():
         c += 1
-print(c / n)
+print(c / n, total_connections / n)
