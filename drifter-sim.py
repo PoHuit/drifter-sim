@@ -22,16 +22,18 @@ def sim():
     connections = [s for s in observatories if len(s) >= 2]
     total_connections += len(connections)
     # Transitive closure
-    closure = {0}
-    running = True
-    while running:
-        running = False
-        for c in connections:
-            if c & closure and not (c <= closure):
-                closure = closure | c
-                running = True
+    def connected(i):
+        closure = {i}
+        running = True
+        while running:
+            running = False
+            for c in connections:
+                if c & closure and not (c <= closure):
+                    closure = closure | c
+                    running = True
+        return closure
     # Check connectivity.
-    return closure == set(range(5))
+    return connected(0) == set(range(5))
 
 n = 10000
 c = 0
