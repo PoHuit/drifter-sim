@@ -6,6 +6,9 @@
 
 # Simulate a bunch of Drifter systems and determine connectivity.
 
+# Number of simulations to run.
+n = 10000
+
 from random import *
 
 total_connections = 0
@@ -40,11 +43,19 @@ def sim():
         clique = connected(target)
         sizes.append(len(clique))
         unconnected -= clique
-    return tuple(sorted(sizes))
+    return tuple(sorted(sizes, reverse=True))
 
-n = 10000
-c = 0
+configs = dict()
 for _ in range(n):
-    if sim() == (5,):
-        c += 1
-print(c / n, total_connections / n)
+    sizes = sim()
+    if sizes in configs:
+        configs[sizes] += 1
+    else:
+        configs[sizes] = 1
+
+print(total_connections / n, "avg connections per sim")
+print()
+for c in sorted(configs.keys(), reverse=True):
+    desc = '/'.join([str(i) for i in c])
+    prob = configs[c] / n
+    print(desc, "%d%%" % (round(100.0 * prob,)))
