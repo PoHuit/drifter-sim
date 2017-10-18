@@ -21,7 +21,7 @@ def sim():
     # Filter out noise for efficiency.
     connections = [s for s in observatories if len(s) >= 2]
     total_connections += len(connections)
-    # Transitive closure
+    # Compute transitive closure for given starting system.
     def connected(i):
         closure = {i}
         running = True
@@ -32,12 +32,19 @@ def sim():
                     closure = closure | c
                     running = True
         return closure
-    # Check connectivity.
-    return connected(0) == set(range(5))
+    # Build connectivity counts.
+    unconnected = set(range(5))
+    sizes = []
+    while unconnected:
+        target = min(unconnected)
+        clique = connected(target)
+        sizes.append(len(clique))
+        unconnected -= clique
+    return tuple(sorted(sizes))
 
 n = 10000
 c = 0
 for _ in range(n):
-    if sim():
+    if sim() == (5,):
         c += 1
 print(c / n, total_connections / n)
